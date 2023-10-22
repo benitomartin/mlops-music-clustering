@@ -1,0 +1,11 @@
+matplotlib
+seaborn
+scikit-learn
+ipykernel 
+plotly
+statsmodels
+nbformat>=4.2.0  
+streamlit
+Flask
+pywhatkit
+kneed
