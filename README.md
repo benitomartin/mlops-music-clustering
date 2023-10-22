@@ -69,10 +69,9 @@ Body
 t2.micro
 Get keypair
 
-## 5. Open EC2 and Install docker in EC2 Machine:
+## 5. Open EC2 Terminal and Install docker in EC2 Machine:
 	
 	
-	#optinal
 
 	sudo apt-get update -y
 
@@ -89,7 +88,35 @@ Get keypair
 	newgrp docker
 
 # 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
+    In GIithub repository: setting>actions>runner>new self hosted runner> choose os> then run command one by one
+
+Download
+# Create a folder
+
+mkdir actions-runner && cd actions-runner# Download the latest runner package
+
+curl -o actions-runner-linux-x64-2.310.2.tar.gz -L https://github.com/actions/
+runner/releases/download/v2.310.2/actions-runner-linux-x64-2.310.2.tar.gz# 
+
+Optional: Validate the hash
+
+echo "fb28a1c3715e0a6c5051af0e6eeff9c255009e2eec6fb08bc2708277fbb49f93  actions-runner-linux-x64-2.310.2.tar.gz" | shasum -a 256 -c# Extract the installer
+
+tar xzf ./actions-runner-linux-x64-2.310.2.tar.gz
+
+
+./config.sh --url https://github.com/benitomartin/mlops-music-clustering --token A3362R6P36FBFJM5W4OL2BTFGVPQ2# Last step, run it!
+
+This will connect with GitHub
+./run.sh
+
+After this command you will see. Enter: self-hosted 
+Enter the name of runner: [press Enter for ip-172-31-24-103]
+
+
+
+# Use this YAML in your workflow file for each job
+runs-on: self-hosted
 
 
 # 7. Setup github secrets:
@@ -106,16 +133,3 @@ Get keypair
 
 
 
-Download
-# Create a folder
-$ mkdir actions-runner && cd actions-runner# Download the latest runner package
-$ curl -o actions-runner-linux-x64-2.310.2.tar.gz -L https://github.com/actions/runner/releases/download/v2.310.2/actions-runner-linux-x64-2.310.2.tar.gz# Optional: Validate the hash
-$ echo "fb28a1c3715e0a6c5051af0e6eeff9c255009e2eec6fb08bc2708277fbb49f93  actions-runner-linux-x64-2.310.2.tar.gz" | shasum -a 256 -c# Extract the installer
-$ tar xzf ./actions-runner-linux-x64-2.310.2.tar.gz
-Configure
-# Create the runner and start the configuration experience
-$ ./config.sh --url https://github.com/benitomartin/mlops-music-clustering --token A3362R6P36FBFJM5W4OL2BTFGVPQ2# Last step, run it!
-$ ./run.sh
-Using your self-hosted runner
-# Use this YAML in your workflow file for each job
-runs-on: self-hosted
