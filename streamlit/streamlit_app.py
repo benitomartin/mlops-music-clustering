@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 from sklearn.utils import shuffle
 import pywhatkit as kit
-import requests  # Import the requests library
+import requests  # AWS Request
 
 
 
@@ -66,20 +66,23 @@ def main():
 
     # Generate Playlist button
     if st.button("Generate Playlist"):
+
+        # Local Prediction
         model = joblib.load('../model/best_model.pkl')
         predict = model.predict(df)
+
+
+        # # AWS URL Prediction
+        # endpoint_url = "http://3.76.204.179:8000/predict"
+        # song_features = df.to_dict(orient='records')[0]
+        # st.write(f"song_features: {song_features}")
+        # response = requests.get(endpoint_url, json=song_features) # GET Request
+        # st.write(f"responser: {response}")
+        # prediction = response.json()["prediction"]
+        # st.write(f"prediction: {prediction}")
+
+
         st.write("Let's Rock!🎸🎸🎸")
-
-        # flask_app_url = "http://18.145.44.177:8080"  # Replace with your EC2 instance's URL and port
-        # prediction_url = f"{flask_app_url}/predict"
-        # response = requests.get(prediction_url, json=df.to_dict(orient='records'))
-
-        # if response.status_code == 200:
-        #     predict = response.json()
-        #     st.write("Let's Rock!🎸🎸🎸")
-        # else:
-        #     st.write("Failed to get prediction from the Flask app.")
-
 
         # Read the dataset and rename columns
         playlist_file = pd.read_csv("../data/labelled_dataset.csv")
@@ -93,11 +96,17 @@ def main():
         playlist_df = playlist_df.rename(columns=new_column_names)
 
         # Filter and shuffle the playlist
+        # Local Prediction
         st.session_state.filtered_playlist_df = playlist_df[playlist_df['cluster'] == predict[0]]
+
+        # # Prediction with AWS URL
+        # st.session_state.filtered_playlist_df = playlist_df[playlist_df['cluster'] == prediction]
+        
         shuffled_playlist = shuffle(st.session_state.filtered_playlist_df.drop(labels=["cluster"], axis=1))
 
         # Display the shuffled playlist
         st.dataframe(shuffled_playlist, use_container_width=True, hide_index=True)
+
 
     # Search on YouTube button
     st.header("Search on YouTube a random song from your list")
