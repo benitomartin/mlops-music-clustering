@@ -11,6 +11,9 @@ RUN pip install -r requirements.txt
 COPY app.py .
 COPY model/ /app/model/
 
+# Install uvicorn
+RUN pip install uvicorn
+
 EXPOSE 8000
 
 # Command to run the app
