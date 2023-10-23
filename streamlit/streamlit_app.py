@@ -3,6 +3,9 @@ import pandas as pd
 import joblib
 from sklearn.utils import shuffle
 import pywhatkit as kit
+import requests  # Import the requests library
+
+
 
 def main():
     # Set page title and configure layout
@@ -66,6 +69,17 @@ def main():
         model = joblib.load('../model/best_model.pkl')
         predict = model.predict(df)
         st.write("Let's Rock!🎸🎸🎸")
+
+        # flask_app_url = "http://18.145.44.177:8080"  # Replace with your EC2 instance's URL and port
+        # prediction_url = f"{flask_app_url}/predict"
+        # response = requests.get(prediction_url, json=df.to_dict(orient='records'))
+
+        # if response.status_code == 200:
+        #     predict = response.json()
+        #     st.write("Let's Rock!🎸🎸🎸")
+        # else:
+        #     st.write("Failed to get prediction from the Flask app.")
+
 
         # Read the dataset and rename columns
         playlist_file = pd.read_csv("../data/labelled_dataset.csv")

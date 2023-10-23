@@ -1,38 +1,42 @@
-from flask import Flask, request, jsonify
+from fastapi import FastAPI, HTTPException  
+from fastapi.middleware.cors import CORSMiddleware
 import joblib
 import pandas as pd
-import random  # Import the random module
 
 
-app = Flask(__name__)
+app = FastAPI()
+
+# Enable CORS (Cross-Origin Resource Sharing)
+origins = ["*"]  # You might want to restrict this to specific origins in production
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Load the machine learning model
-model = joblib.load('model/best_model.pkl')
-
-@app.route('/', methods=['GET'])
-def index():
-    return "Welcome to the Music App!"
+app.state.model = joblib.load('model/best_model.pkl')
 
 
-@app.route('/predict', methods=['POST'])
-def predict():
+@app.get("/predict") ## the request shall be here get not post
+def predict(popularity=1,
+            acousticness=1,
+            danceability=1,
+            duration_ms=50,
+            energy=1,
+            instrumentalness=1,
+            liveness=1,
+            loudness=1,
+            speechiness=1,
+            tempo=1,
+            valence=1):
+    
     try:
-        data = request.get_json()
-        # Extract the features from the JSON request
-        popularity = data['popularity']
-        acousticness = data['acousticness']
-        danceability = data['danceability']
-        duration_ms = data['duration_ms'] * 50
-        energy = data['energy']
-        instrumentalness = data['instrumentalness']
-        liveness = data['liveness']
-        loudness = data['loudness']
-        speechiness = data['speechiness']
-        tempo = data['tempo']
-        valence = data['valence']
 
-        # Create a DataFrame with the input features
-        input_data = pd.DataFrame({
+        # Handle the POST request and make predictions
+        data = pd.DataFrame({
             'popularity': [popularity],
             'acousticness': [acousticness],
             'danceability': [danceability],
@@ -46,21 +50,21 @@ def predict():
             'valence': [valence]
         })
 
+        model = app.state.model
+        
         # Make predictions using the loaded model
-        prediction = model.predict(input_data)
-
+        prediction = model.predict(data)
         prediction = int(prediction[0])
+        return {"prediction": prediction}
+    
 
-
-        return jsonify({'prediction': prediction})
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
-        return jsonify({'error': str(e)})
 
 
-if __name__ == '__main__':
-    # # For local check
-    # app.run(debug=True, host='0.0.0.0', port=8080)
+# Define a route and a function to handle requests to that route
+@app.get("/")
+def read_root():
+    return {"Message": "Welcome to the Playlist Generator App!"}
 
-    # For AWS
-    app.run(host='0.0.0.0', port=8080)

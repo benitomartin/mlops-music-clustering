@@ -63,10 +63,15 @@ Body
 
 
 ## 3. Create ECR repo to store/save docker image
-406468071577.dkr.ecr.eu-central-1.amazonaws.com/spotify
+406468071577.dkr.ecr.eu-central-1.amazonaws.com/musicapp
 
 ## 4. Create EC2 machine (Ubuntu) 
 t2.micro
+
+Allow: HTTPS, SSH and HTTP
+
+Get 30 instead of 8 gp2 Storage
+
 Get keypair
 
 ## 5. Open EC2 Terminal and Install docker in EC2 Machine:
@@ -87,13 +92,20 @@ Get keypair
 
 	newgrp docker
 
+Check docker is installed
+    docker --version
+
 # 6. Configure EC2 as self-hosted runner:
     In GIithub repository: setting>actions>runner>new self hosted runner> choose os> then run command one by one
+
+    Select Linux as runner image on the top
 
 Download
 # Create a folder
 
-mkdir actions-runner && cd actions-runner# Download the latest runner package
+Press enter everywhere except in the self-hosted
+
+mkdir actions-runner && cd actions-runner  # Download the latest runner package
 
 curl -o actions-runner-linux-x64-2.310.2.tar.gz -L https://github.com/actions/
 runner/releases/download/v2.310.2/actions-runner-linux-x64-2.310.2.tar.gz# 
@@ -104,14 +116,16 @@ echo "fb28a1c3715e0a6c5051af0e6eeff9c255009e2eec6fb08bc2708277fbb49f93  actions-
 
 tar xzf ./actions-runner-linux-x64-2.310.2.tar.gz
 
-
+This configures the repository
 ./config.sh --url https://github.com/benitomartin/mlops-music-clustering --token A3362R6P36FBFJM5W4OL2BTFGVPQ2# Last step, run it!
+
+After this command you will see. Enter: self-hosted (see yaml file in github actions)
+Enter the name of runner: [press Enter for ip-172-31-24-103]
 
 This will connect with GitHub
 ./run.sh
 
-After this command you will see. Enter: self-hosted 
-Enter the name of runner: [press Enter for ip-172-31-24-103]
+
 
 
 
@@ -129,7 +143,8 @@ runs-on: self-hosted
 
     AWS_ECR_LOGIN_URI = demo>>  406468071577.dkr.ecr.eu-central-1.amazonaws.com
 
-    ECR_REPOSITORY_NAME = spotify
+    ECR_REPOSITORY_NAME = musicapp
 
 
 
+If everything works, then add the port (Custom TCP) of the app (8080 in the security groups of the instance)
