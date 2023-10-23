@@ -63,7 +63,7 @@ Body
 
 
 ## 3. Create ECR repo to store/save docker image
-406468071577.dkr.ecr.eu-central-1.amazonaws.com/musicapp
+406468071577.dkr.ecr.eu-central-1.amazonaws.com/music
 
 ## 4. Create EC2 machine (Ubuntu) 
 t2.micro
