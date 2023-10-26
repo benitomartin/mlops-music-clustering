@@ -88,7 +88,7 @@ jobs:
          
       # - name: Stop and remove container if running
       #   run: |
-      #    docker ps -q --filter "name=musicapp" | grep -q . && docker stop musicapp && docker rm -fv musicapp
+      #    docker ps -q --filter "name=musicfast" | grep -q . && docker stop musicfast && docker rm -fv musicfast
        
       - name: Run Docker Image to serve users
         run: |
