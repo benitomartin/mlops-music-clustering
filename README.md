@@ -127,7 +127,7 @@ After the EDA, a classifier modelling was performed using the following models:
 - RandomForestClassifier
 - QuadraticDiscriminantAnalysis
 
-All models perfomed an accuracy above 0.9, being the SVC tthe one with the better results with only 58 FN and FP.
+All models performed an accuracy above 0.9, being the SVC the one with the better results with only 58 FN and FP.
 
 <p align="center">
     <img src="/images/confusion_matrix.png"/>
@@ -166,8 +166,6 @@ sudo apt-get update -y
 
 sudo apt-get upgrade
 
-#required
-
 curl -fsSL https://get.docker.com -o get-docker.sh
 
 sudo sh get-docker.sh
@@ -185,7 +183,7 @@ Configure EC2 as self-hosted runner:
 
 - In GitHub repository: setting -> actions -> runner -> new self hosted runner -> choose OS Linux -> then run each command one by one in the EC2 terminal
 
-Setup github secrets:
+Setup GitHub secrets:
 
 - AWS_ACCESS_KEY_ID
 - AWS_SECRET_ACCESS_KEY
@@ -193,11 +191,11 @@ Setup github secrets:
 - AWS_ECR_LOGIN_URI 
 - ECR_REPOSITORY_NAME 
 
-Make sure all data are the same in the yaml file and push the code to GitHub
+Make sure all data are the same in the yaml file and push the code to GitHub.
 
 ### App
 
-The Streamlit App can be run with the saved model or the Service URL. By selecting the desired features, a music playlist will be generated which correspond to a cluster. 
+The Streamlit App can be run with the saved model or the Service URL. By selecting the desired features, a music playlist will be generated which correspond to a cluster. By clicking search on YouTube a random song will be selected and will redirect you to YouTube to listen that song
 
 <p align="center">
     <img src="/images/streamlit.png"/>
