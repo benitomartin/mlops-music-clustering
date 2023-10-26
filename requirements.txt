@@ -1,6 +1,6 @@
 matplotlib
 seaborn
-scikit-learn
+scikit-learn== 1.3.1 
 ipykernel 
 plotly
 statsmodels
@@ -11,4 +11,3 @@ kneed
 fastapi
 uvicorn
 joblib
-webbrowser

@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 from sklearn.utils import shuffle
 # import pywhatkit as kit
-import requests  # AWS Request
+# import requests  # AWS Request
 import webbrowser
 
 
@@ -70,11 +70,11 @@ def main():
 
 
         # Download the model file from the URL and save it locally
-        local_model_filename = "https://raw.githubusercontent.com/benitomartin/mlops-music-clustering/main/model/best_model.pkl"
+        local_model_filename = "../model/best_model.pkl"
 
 
         # Load the model from the local file
-        model = joblib.load(local_model_filename)
+        model = joblib.load(open(local_model_filename, "rb"))
         predict = model.predict(df)
 
 
@@ -133,8 +133,7 @@ def main():
                 webbrowser.open(url)
 
 
-                search_query = input("Enter your YouTube search query: ")
-            
+           
             search_youtube(search_query)
 
 if __name__ == '__main__':
