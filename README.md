@@ -43,7 +43,7 @@ The project has been structured with the following folders and files:
 
 ### Exploratory Data Analysis
 
-The dataset was obtained from Kaggle and contains 232'725 rows and various columns with song features:
+The dataset was obtained from Kaggle and contains 232'725 rows and various columns with song features: 
 
 - genre
 - danceability
@@ -64,7 +64,7 @@ The dataset was obtained from Kaggle and contains 232'725 rows and various colum
 - liveness
 - valence
  			 			
-To prepare the data for modelling, an **Exploratory Data Analysis** was conducted to preprocess the numerical features, and suitable scalers were chosen for the preprocessing pipeline. Prior to scaling by plotting 3 features it can be seen that they are not very correlated except from acousticness, energy and loudness. 
+To prepare the data for modelling, an **Exploratory Data Analysis** was conducted to preprocess the numerical features, and suitable scalers were chosen for the preprocessing pipeline. Prior to scaling by plotting 3 features, it can be seen that they are not very correlated except from acousticness, energy and loudness. 
 
 <p align="center">
     <img src="/images/scatter_non_scaled.png"/>
@@ -74,7 +74,7 @@ To prepare the data for modelling, an **Exploratory Data Analysis** was conducte
     <img src="/images/correlation.png"/>
     </p>
 
-For chosing the scalers the distribution and boxplot of each features was analyzed. The features with significant outliers were scaled with RobustScaler, features normally distributed with StandardScaler and the rest with MinMmaxScaler. 
+For choosing the scalers, the distribution and boxplot of each features was analyzed. The features with significant outliers were scaled with RobustScaler, features normally distributed with StandardScaler and the rest with MinMmaxScaler. 
 
 <p>
     <img src="/images/popularity.png"/>
@@ -83,12 +83,12 @@ For chosing the scalers the distribution and boxplot of each features was analyz
     <img src="/images/acousticness.png"/>
     </p>
 
-Afterwards, the scaled features were fitted in a **PCA model** with the follwoing objectives: 
+Afterwards, the scaled features were fitted in a **PCA model** with the following objectives: 
 
 - reduce dimensionality to get a better visual feedback on our clustering
 - use the orthogonality of the principal components so that the KMeans algorithm increases its clustering power
 
-A threshold of **95% explained variance** was set up in order to get the number of pricipal components, which ended up being 3.
+A threshold of **95% explained variance** was set up in order to get the number of principal components, which ended up being 3.
 
 <p>
     <img src="/images/PCAs.png"/>
@@ -116,7 +116,7 @@ The results after scaling, getting the number of PCs (3) and clusters (5), show 
 
 ### Modelling
 
-After the EDA, a classifier modelling was perfomed using the following models:
+After the EDA, a classifier modelling was performed using the following models:
 
 - KNeighborsClassifier
 - MLPClassifier
@@ -127,6 +127,7 @@ After the EDA, a classifier modelling was perfomed using the following models:
 - RandomForestClassifier
 - QuadraticDiscriminantAnalysis
 
+All models perfomed an accuracy above 0.9, being the SV
 
 
 # AWS-CICD-Deployment-with-Github-Actions
