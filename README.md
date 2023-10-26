@@ -41,14 +41,28 @@ The project has been structured with the following folders and files:
 
 ## Project Description
 
+### Exploratory Data Analysis
+
 The dataset was obtained from Kaggle and contains 232'725 rows and various columns with song features:
 
-- genre            			- danceability 				- loudness      
-- artist_name      			- duration_ms 	 			- mode   
-- track_name         			- energy   				- speechiness
-- track_id          			- instrumentalness   			- tempo
-- popularity          			- keys      				- time_signature
-- acousticness    			- liveness 				- valence
+- genre
+- danceability
+  loudness      
+- artist_name
+- duration_ms
+- mode   
+- track_name
+- energy
+- speechiness
+- track_id
+- instrumentalness
+- tempo
+- popularity
+- keys
+- time_signature
+- acousticness
+- liveness
+- valence
  			 			
 To prepare the data for modelling, an **Exploratory Data Analysis** was conducted to preprocess the numerical features, and suitable scalers were chosen for the preprocessing pipeline. Prior to scaling by plotting 3 features it can be seen that they are not very correlated except from acousticness, energy and loudness. 
 
@@ -69,16 +83,49 @@ For chosing the scalers the distribution and boxplot of each features was analyz
     <img src="/images/acousticness.png"/>
     </p>
 
-Afterwards, the scaled features were fitted in a PCA model with the follwoing objectives: 
+Afterwards, the scaled features were fitted in a **PCA model** with the follwoing objectives: 
 
 - reduce dimensionality to get a better visual feedback on our clustering
 - use the orthogonality of the principal components so that the KMeans algorithm increases its clustering power
 
-A threshold of 95% explained variance was set up in order to get the number of pricipal components
+A threshold of **95% explained variance** was set up in order to get the number of pricipal components, which ended up being 3.
 
 <p>
     <img src="/images/PCAs.png"/>
     </p>
+
+Then we determine the optimal number of clusters for **K-Means** using the within-cluster sum of squares (WCSS) method and the "elbow" or "knee" point in the WCSS curve:
+
+- **Calculate WCSS for different numbers of clusters**: The code iterates through a range of cluster numbers from 1 to max_clusters - 1 and fits a K-Means model to the data. The kmeans.inertia_ attribute returns the WCSS for the current number of clusters, which is then appended to the wcss list.
+
+- **Determine the optimal number of clusters**: The KneeLocator is used to find the optimal number of clusters based on the WCSS values. The 'elbow' or 'knee' point represents the optimal number of clusters where adding more clusters doesn't significantly reduce the WCSS.
+
+<p>
+    <img src="/images/elbow.png"/>
+    </p>
+
+The results after scaling, getting the number of PCs (3) and clusters (5), show a clear grouping of the numerical features, as well as the distribution of the features along each cluster.
+
+<p align="center">
+    <img src="/images/scatter_scaled.png"/>
+    </p>
+
+<p align="center">
+    <img src="/images/radar.png"/>
+    </p>
+
+### Modelling
+
+After the EDA, a classifier modelling was perfomed using the following models:
+
+- KNeighborsClassifier
+- MLPClassifier
+- SVC
+- AdaBoostClassifier
+- DecisionTreeClassifier
+- GaussianNB
+- RandomForestClassifier
+- QuadraticDiscriminantAnalysis
 
 
 
