@@ -33,6 +33,7 @@ The project has been structured with the following folders and files:
 - `.github/workflows`: CI/CD Pipeline
 - `data`: dataset 
 - `images:` images from results
+- `streamlit`: streamlit app
 - `notebooks:` EDA and Modelling performed at the beginning of the project to establish a baseline
 - `model:` saved best model
 - `requirements.txt:` project requirements
@@ -201,4 +202,3 @@ The Streamlit App can be run with the saved model or the Service URL. By selecti
     <img src="/images/streamlit.png"/>
     </p>
 
-streamlit.png
