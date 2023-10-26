@@ -70,7 +70,7 @@ def main():
 
 
         # Download the model file from the URL and save it locally
-        local_model_filename = "../model/best_model.pkl"
+        local_model_filename = "https://github.com/benitomartin/mlops-music-clustering/blob/main/model/best_model.pkl"
 
 
         # Load the model from the local file
