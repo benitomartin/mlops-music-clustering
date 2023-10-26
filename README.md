@@ -30,7 +30,7 @@ This is a personal MLOps project based on this [Kaggle](https://www.kaggle.com/d
 
 The project has been structured with the following folders and files:
 
--`.github/workflows`: CI/CD Pipeline
+- `.github/workflows`: CI/CD Pipeline
 - `data`: dataset 
 - `images:` images from results
 - `notebooks:` EDA and Modelling performed at the beginning of the project to establish a baseline
