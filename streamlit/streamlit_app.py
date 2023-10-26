@@ -5,6 +5,9 @@ from sklearn.utils import shuffle
 import pywhatkit as kit
 import requests  # AWS Request
 
+import os
+
+os.environ['DISPLAY'] = ':0.0'  # Set the 'DISPLAY' variable to your X server display.
 
 
 def main():
