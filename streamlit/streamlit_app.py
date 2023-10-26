@@ -2,12 +2,11 @@ import streamlit as st
 import pandas as pd
 import joblib
 from sklearn.utils import shuffle
-import pywhatkit as kit
+# import pywhatkit as kit
 import requests  # AWS Request
 
-import os
-
-os.environ['DISPLAY'] = ':0.0'  # Set the 'DISPLAY' variable to your X server display.
+# import os
+# os.environ['DISPLAY'] = ':0.0'  # Set the 'DISPLAY' variable to your X server display.
 
 
 def main():
