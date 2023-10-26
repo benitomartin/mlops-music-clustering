@@ -10,3 +10,4 @@ pywhatkit
 kneed
 fastapi
 uvicorn
+joblib
