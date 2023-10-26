@@ -70,7 +70,7 @@ def main():
 
 
         # Download the model file from the URL and save it locally
-        local_model_filename = "../model/best_model.joblib"
+        local_model_filename = "https://raw.githubusercontent.com/benitomartin/mlops-music-clustering/main/model/best_model.joblib"
 
 
         # Load the model from the local file
