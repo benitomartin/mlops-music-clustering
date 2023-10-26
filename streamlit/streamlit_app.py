@@ -57,7 +57,7 @@ def main():
     st.sidebar.info("This App is based on the following Spotify Dataset from [Kaggle](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db).")
     st.sidebar.info("PCA and KMeans have been performed to cluster the songs into 5 groups (playlists) based on the song features.")
     st.sidebar.info("First, you can generate the playlist based on the selected features. Then, you can search for a random song from the list, which will redirect to YouTube.")
-    st.sidebar.image("../images/cassette.jpg")
+    st.sidebar.image("https://github.com/benitomartin/mlops-music-clustering/blob/main/images/cassette.jpg")
 
     # Use st.session_state to persist variables across button clicks
     if 'filtered_playlist_df' not in st.session_state:
