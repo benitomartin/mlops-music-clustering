@@ -196,7 +196,7 @@ Make sure all data are the same in the yaml file and push the code to GitHub.
 
 ### App
 
-The Streamlit App can be run with the saved model or the Service URL. By selecting the desired features, a music playlist will be generated which correspond to a cluster. By clicking search on YouTube a random song will be selected and will redirect you to YouTube to listen that song
+The Streamlit [App](https://music-clustering-playlist.streamlit.app/) can be run with the saved model or the Service URL. By selecting the desired features, a music playlist will be generated which correspond to a cluster. By clicking search on YouTube a random song will be selected and will redirect you to YouTube to listen that song
 
 <p align="center">
     <img src="/images/streamlit.png"/>
