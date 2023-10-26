@@ -11,3 +11,4 @@ kneed
 fastapi
 uvicorn
 joblib
+webbrowser

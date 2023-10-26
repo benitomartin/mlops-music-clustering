@@ -2,8 +2,9 @@ import streamlit as st
 import pandas as pd
 import joblib
 from sklearn.utils import shuffle
-import pywhatkit as kit
+# import pywhatkit as kit
 import requests  # AWS Request
+import webbrowser
 
 
 
@@ -122,9 +123,19 @@ def main():
             selected_artist = selected_row["Artist Name"].values[0]
             st.session_state.selected_song = selected_row["Track Name"].values[0]
 
-            # Perform a YouTube search for the selected song and artist
+            # # Perform a YouTube search for the selected song and artist
             search_query = f"{st.session_state.selected_song} {selected_artist}"
-            kit.playonyt(search_query)
+            # kit.playonyt(search_query)
+
+            def search_youtube(query):
+                query = query.replace(' ', '+')
+                url = f"https://www.youtube.com/results?search_query={query}"
+                webbrowser.open(url)
+
+
+                search_query = input("Enter your YouTube search query: ")
+            
+            search_youtube(search_query)
 
 if __name__ == '__main__':
     main()
