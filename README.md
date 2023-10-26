@@ -127,127 +127,80 @@ After the EDA, a classifier modelling was performed using the following models:
 - RandomForestClassifier
 - QuadraticDiscriminantAnalysis
 
-All models perfomed an accuracy above 0.9, being the SV
+All models perfomed an accuracy above 0.9, being the SVC tthe one with the better results with only 58 FN and FP.
 
+<p align="center">
+    <img src="/images/confusion_matrix.png"/>
+    </p>
 
-# AWS-CICD-Deployment-with-Github-Actions
+<p align="center">
+    <img src="/images/f1_precission_recall.png"/>
+    </p>
+    
+## Deployment
 
-## 1. Login to AWS console.
+For the deployment a CICD Pipeline was set up pushing a Dockerimage into an ECR and launching it in an EC2 in AWS. Then the app can be used in Streamlit wither loading the model or using the Service URL of the EC2 instance.
 
-## 2. Create IAM user for deployment
+### AWS CICD
 
-	#with specific access
+Create an IAM user with the following policies:
 
-	1. EC2 access : It is virtual machine
+- AmazonEC2ContainerRegistryFullAccess
+- AmazonEC2FullAccess
 
-	2. ECR: Elastic Container registry to save your docker image in aws
+Create EC2 instance:
 
+- t2.micro
+- Allow: HTTPS, SSH and HTTP
+- 30 instead of 8 gp2 storage
+- Get keypair
+- Add security group port range 8000
 
-	#Description: About the deployment
+Create an ECR Repository for the Dockerimage
+- 406345071577.dkr.ecr.eu-central-1.amazonaws.com/music
 
-	1. Build docker image of the source code
+Open the EC2 instance and install docker with the following commands:
 
-	2. Push your docker image to ECR
+```bash
+sudo apt-get update -y
 
-	3. Launch Your EC2 
+sudo apt-get upgrade
 
-	4. Pull Your image from ECR in EC2
+#required
 
-	5. Lauch your docker image in EC2
+curl -fsSL https://get.docker.com -o get-docker.sh
 
-	#Policy for new iam user:
+sudo sh get-docker.sh
 
-	1. AmazonEC2ContainerRegistryFullAccess
+sudo usermod -aG docker ubuntu
 
-	2. AmazonEC2FullAccess
+newgrp docker
+```
 
-    3. Get accessKey
+Check that docker is installed
+```bash
+docker --version
+```
+Configure EC2 as self-hosted runner:
 
+- In GitHub repository: setting -> actions -> runner -> new self hosted runner -> choose OS Linux -> then run each command one by one in the EC2 terminal
 
+Setup github secrets:
 
-## 3. Create ECR repo to store/save docker image
-406468071577.dkr.ecr.eu-central-1.amazonaws.com/music
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_REGION
+- AWS_ECR_LOGIN_URI 
+- ECR_REPOSITORY_NAME 
 
-## 4. Create EC2 machine (Ubuntu) 
-t2.micro
+Make sure all data are the same in the yaml file and push the code to GitHub
 
-Allow: HTTPS, SSH and HTTP
+### App
 
-Get 30 instead of 8 gp2 Storage
+The Streamlit App can be run with the saved model or the Service URL. By selecting the desired features, a music playlist will be generated which correspond to a cluster. 
 
-Get keypair
+<p align="center">
+    <img src="/images/streamlit.png"/>
+    </p>
 
-## 5. Open EC2 Terminal and Install docker in EC2 Machine:
-	
-	
-
-	sudo apt-get update -y
-
-	sudo apt-get upgrade
-	
-	#required
-
-	curl -fsSL https://get.docker.com -o get-docker.sh
-
-	sudo sh get-docker.sh
-
-	sudo usermod -aG docker ubuntu
-
-	newgrp docker
-
-Check docker is installed
-    docker --version
-
-# 6. Configure EC2 as self-hosted runner:
-    In GIithub repository: setting>actions>runner>new self hosted runner> choose os> then run command one by one
-
-    Select Linux as runner image on the top
-
-Download
-# Create a folder
-
-Press enter everywhere except in the self-hosted
-
-mkdir actions-runner && cd actions-runner  # Download the latest runner package
-
-curl -o actions-runner-linux-x64-2.310.2.tar.gz -L https://github.com/actions/
-runner/releases/download/v2.310.2/actions-runner-linux-x64-2.310.2.tar.gz# 
-
-Optional: Validate the hash
-
-echo "fb28a1c3715e0a6c5051af0e6eeff9c255009e2eec6fb08bc2708277fbb49f93  actions-runner-linux-x64-2.310.2.tar.gz" | shasum -a 256 -c# Extract the installer
-
-tar xzf ./actions-runner-linux-x64-2.310.2.tar.gz
-
-This configures the repository
-./config.sh --url https://github.com/benitomartin/mlops-music-clustering --token A3362R6P36FBFJM5W4OL2BTFGVPQ2# Last step, run it!
-
-After this command you will see. Enter: self-hosted (see yaml file in github actions)
-Enter the name of runner: [press Enter for ip-172-31-24-103]
-
-This will connect with GitHub
-./run.sh
-
-
-
-
-
-# Use this YAML in your workflow file for each job
-runs-on: self-hosted
-
-
-# 7. Setup github secrets:
-
-    AWS_ACCESS_KEY_ID=
-
-    AWS_SECRET_ACCESS_KEY=
-
-    AWS_REGION = eu-central-1
-
-    AWS_ECR_LOGIN_URI = demo>>  406468071577.dkr.ecr.eu-central-1.amazonaws.com
-
-    ECR_REPOSITORY_NAME = musicapp
-
-
-
-If everything works, then add the port (Custom TCP) of the app (8080 in the security groups of the instance)
+streamlit.png
