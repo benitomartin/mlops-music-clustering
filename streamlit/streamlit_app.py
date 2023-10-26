@@ -70,7 +70,7 @@ def main():
     if st.button("Generate Playlist"):
 
         # Local Prediction
-        model = joblib.load('../model/best_model.pkl')
+        model = joblib.load('https://github.com/benitomartin/mlops-music-clustering/blob/main/model/best_model.pkl')
         predict = model.predict(df)
 
 
