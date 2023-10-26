@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 from sklearn.utils import shuffle
-# import pywhatkit as kit
+import pywhatkit as kit
 import requests  # AWS Request
 
 # import os
@@ -69,8 +69,19 @@ def main():
     # Generate Playlist button
     if st.button("Generate Playlist"):
 
-        # Local Prediction
-        model = joblib.load('https://raw.githubusercontent.com/benitomartin/mlops-music-clustering/main/model/best_model.pkl')
+        # Function to download a file from a URL
+        def download_file(url, local_filename):
+            response = requests.get(url)
+            with open(local_filename, 'wb') as file:
+                file.write(response.content)
+
+        # Download the model file from the URL and save it locally
+        model_url = "https://raw.githubusercontent.com/benitomartin/mlops-music-clustering/main/model/best_model.pkl"
+        local_model_filename = "best_model.pkl"
+        download_file(model_url, local_model_filename)
+
+        # Load the model from the local file
+        model = joblib.load(local_model_filename)
         predict = model.predict(df)
 
 
