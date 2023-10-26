@@ -71,7 +71,7 @@ To prepare the data for modelling, an **Exploratory Data Analysis** was conducte
     <img src="/images/acousticness.png"/>
     </p>
 
-<p>
+<p align="center">
     <img src="/images/scatter_non_scaled.png"/>
     </p>
 
