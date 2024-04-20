@@ -4,7 +4,7 @@
     <img src="/images/cassette.jpg"/>
     </p>
 
-This is a personal MLOps project based on this [Kaggle](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db) dataset with music features from Spotify. Below you can find some instructions to understand the project content. Feel free to clone this repo 😉
+This is a personal MLOps project based on this [Kaggle](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db) dataset with music features from Spotify. Below you can find some instructions to understand the project content. Feel free to ⭐ and clone this repo 😉
 
 
 ## Tech Stack
